@@ -126,13 +126,9 @@ const Home = (props) => {
 
       {/*  <div>{JSON.stringify([dataRetrievedHDBCarparkInfo])}</div>
       <div>{JSON.stringify([dataRetrievedAvailability])}</div>
+      <div>{JSON.stringify([dataRetrievedAvailability[0].car_park_no])}</div>
       
-      <div ClassName="output">
-        {movieSelected.map((element) => (
-          <div>
-            <img src={element.url}></img>
-            <p>{element.name}</p>
-          </div>
+ 
         ))}
         </div>*/}
     </div>
