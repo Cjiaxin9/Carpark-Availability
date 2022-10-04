@@ -1,0 +1,48 @@
+.row {
+  max-width: 1500px;
+  border-bottom: 1px solid grey;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  border-top: 1px solid grey;
+  padding: 0.5em;
+  text-align: center;
+}
+
+.col-md-4 {
+  font-size: 1.5em;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+}
+input {
+  position: relative;
+  margin-left: 1000px;
+  width: 450px;
+  height: 50px;
+  font-size: x-large;
+  text-align: center;
+}
+.buttonSearch {
+  position: relative;
+  margin-left: 10px;
+  width: 100px;
+  height: 50px;
+  font-size: x-large;
+  text-align: center;
+}
+
+.buttonSearchagain {
+  position: relative;
+  margin-left: 1460px;
+  width: 200px;
+  height: 50px;
+  font-size: x-large;
+  text-align: center;
+}
+.table {
+  position: relative;
+  margin-left: 500px;
+}
+.header {
+  position: relative;
+  margin-left: 1000px;
+}
