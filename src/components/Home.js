@@ -102,9 +102,15 @@ const Home = (props) => {
     setQuery("");
     setHasSearched(false);
   };
+
   return (
     <div ClassName="container">
-      <h1 className="header">HDB Carpark Availability</h1>
+      {hasSearched ? (
+        <img src="https://media.giphy.com/media/NfY2xu127irrG/giphy.gif" />
+      ) : (
+        <img src="https://media.giphy.com/media/SclQC1VGlH0GyQvbkr/giphy.gif" />
+      )}
+      <h1 className="header">Carpark Availability</h1>
       <Search
         handleUserInput={handleUserInput}
         handleSubmit={handleSubmit}
