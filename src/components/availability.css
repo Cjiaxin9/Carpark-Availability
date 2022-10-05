@@ -44,12 +44,13 @@ input {
 }
 .header {
   position: relative;
+  margin-top: 80px;
   margin-left: 950px;
 }
 
-img {
+.image {
   position: relative;
   margin-left: 1460px;
-  margin-bottom: -110px;
-  margin-top: 20px;
+
+  margin-top: -150px;
 }
