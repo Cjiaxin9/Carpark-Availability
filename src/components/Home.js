@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
+import HDB_Carpark_Information from "./HDB_Carpark_Information";
+import CarparkAvailability from "./CarparkAvailability";
 import Search from "./Search";
+
 import useFetch from "../hooks/useFetch";
 import AvailabilityCard from "./AvailabilityCard";
 import "./availability.css";
 
 const Home = (props) => {
   //retrived carpark info from HDB carpark information
+
   const HDBData = useFetch(
     "https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2182"
   );
@@ -15,7 +19,9 @@ const Home = (props) => {
     setDataRetrievedHDBCarparkInfo(HDBData);
   });
   const HDBDataInfo = dataRetrievedHDBCarparkInfo.result?.records;
+
   const HDBCarparkInfo = [];
+
   useEffect(() => {
     for (let i = 0; i < HDBDataInfo?.length; i++) {
       HDBCarparkInfo.push({
@@ -26,6 +32,7 @@ const Home = (props) => {
   }, [HDBDataInfo]);
 
   //retrived carpark info from HDB carpark information
+
   const availData = useFetch(
     "https://api.data.gov.sg/v1/transport/carpark-availability"
   );
@@ -57,16 +64,15 @@ const Home = (props) => {
   const handleUserInput = (event) => {
     setUserInput(event.target.value);
   };
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setQuery(userInput);
     setHasSearched(true);
   };
-
   useEffect(() => {
     // convert from array to  key-value pairs
     const temp = {};
+
     if (HDBCarparkInfo.length > 0) {
       for (let i = 0; i < HDBCarparkInfo.length; i++) {
         temp[HDBCarparkInfo[i].car_park_no.toUpperCase()] =
@@ -80,8 +86,11 @@ const Home = (props) => {
   // to mark array for Availability
   useEffect(() => {
     const CPAvail = [];
+
     for (let i = 0; i < carparkAvailability.length; i++) {
       CPAvail.push({
+        car_park_no: carparkAvailability[i].car_park_no.toUpperCase(),
+        lots_available: carparkAvailability[i].lots_available,
         car_park_no: carparkAvailability[i].car_park_no.toUpperCase(),
         lots_available: carparkAvailability[i].lots_available,
       });
@@ -128,7 +137,7 @@ const Home = (props) => {
   };
   return (
     <div ClassName="container">
-      <h1 className="header">HDB Carpark Availability</h1>
+      <h1 className="header">Carpark Availability</h1>
       <Search
         handleUserInput={handleUserInput}
         handleSubmit={handleSubmit}
@@ -154,6 +163,7 @@ const Home = (props) => {
           address="Address"
           availability="Lots Available"
         />
+
         {CPSelected.map((item) => {
           return (
             <AvailabilityCard
