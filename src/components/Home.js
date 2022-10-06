@@ -1,27 +1,51 @@
 import React, { useEffect, useState } from "react";
-import HDB_Carpark_Information from "./HDB_Carpark_Information";
-import CarparkAvailability from "./CarparkAvailability";
 import Search from "./Search";
-
+import useFetch from "../hooks/useFetch";
 import AvailabilityCard from "./AvailabilityCard";
 import "./availability.css";
 
 const Home = (props) => {
   //retrived carpark info from HDB carpark information
-
+  const HDBData = useFetch(
+    "https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2182"
+  );
   const [dataRetrievedHDBCarparkInfo, setDataRetrievedHDBCarparkInfo] =
-    useState("");
+    useState([]);
+  useEffect(() => {
+    setDataRetrievedHDBCarparkInfo(HDBData);
+  });
+  const HDBDataInfo = dataRetrievedHDBCarparkInfo.result?.records;
+  const HDBCarparkInfo = [];
+  useEffect(() => {
+    for (let i = 0; i < HDBDataInfo?.length; i++) {
+      HDBCarparkInfo.push({
+        car_park_no: HDBDataInfo[i].car_park_no,
+        address: HDBDataInfo[i].address,
+      });
+    }
+  }, [HDBDataInfo]);
 
-  const retrieveDataFromInfo = (data) => {
-    setDataRetrievedHDBCarparkInfo(data);
-  };
   //retrived carpark info from HDB carpark information
-  const [dataRetrievedAvailability, setDataRetrievedAvailability] =
-    useState("");
+  const availData = useFetch(
+    "https://api.data.gov.sg/v1/transport/carpark-availability"
+  );
+  const [dataRetrievedAvailability, setDataRetrievedAvailability] = useState(
+    []
+  );
+  useEffect(() => {
+    setDataRetrievedAvailability(availData);
+  });
 
-  const retrieveDataFromAvailability = (data) => {
-    setDataRetrievedAvailability(data);
-  };
+  const carparkAvailability = [];
+  const availDataInfo = dataRetrievedAvailability.items?.[0].carpark_data;
+  useEffect(() => {
+    for (let i = 0; i < availDataInfo?.length; i++) {
+      carparkAvailability.push({
+        car_park_no: availDataInfo[i].carpark_number,
+        lots_available: availDataInfo[i].carpark_info[0].lots_available,
+      });
+    }
+  }, [availDataInfo]);
 
   // Search for Nos
   const [query, setQuery] = useState(""); //(Carpark no being searched)
@@ -43,28 +67,28 @@ const Home = (props) => {
   useEffect(() => {
     // convert from array to  key-value pairs
     const temp = {};
-    if (dataRetrievedHDBCarparkInfo.length > 0) {
-      for (let i = 0; i < dataRetrievedHDBCarparkInfo.length; i++) {
-        temp[dataRetrievedHDBCarparkInfo[i].car_park_no.toUpperCase()] =
-          dataRetrievedHDBCarparkInfo[i].address.toUpperCase();
+    if (HDBCarparkInfo.length > 0) {
+      for (let i = 0; i < HDBCarparkInfo.length; i++) {
+        temp[HDBCarparkInfo[i].car_park_no.toUpperCase()] =
+          HDBCarparkInfo[i].address.toUpperCase();
       }
 
       setHDBInfoObject(temp);
     }
-  }, [dataRetrievedHDBCarparkInfo]);
+  }, [HDBCarparkInfo]);
 
   // to mark array for Availability
   useEffect(() => {
     const CPAvail = [];
-    for (let i = 0; i < dataRetrievedAvailability.length; i++) {
+    for (let i = 0; i < carparkAvailability.length; i++) {
       CPAvail.push({
-        car_park_no: dataRetrievedAvailability[i].car_park_no.toUpperCase(),
-        lots_available: dataRetrievedAvailability[i].lots_available,
+        car_park_no: carparkAvailability[i].car_park_no.toUpperCase(),
+        lots_available: carparkAvailability[i].lots_available,
       });
     }
 
     setCPAvail(CPAvail);
-  }, [dataRetrievedAvailability]);
+  }, [carparkAvailability]);
 
   // find using value
   //filter the value in value
@@ -111,9 +135,18 @@ const Home = (props) => {
         hasSearched={hasSearched}
         onSearchAgain={onSearchAgain}
       />
+      {hasSearched ? (
+        <img
+          className="image"
+          src="https://media.giphy.com/media/NfY2xu127irrG/giphy.gif"
+        />
+      ) : (
+        <img
+          className="image"
+          src="https://media.giphy.com/media/SclQC1VGlH0GyQvbkr/giphy.gif"
+        />
+      )}
 
-      <HDB_Carpark_Information onSave={retrieveDataFromInfo} />
-      <CarparkAvailability onSaved={retrieveDataFromAvailability} />
       <div className="table">
         <p></p>
         <AvailabilityCard
@@ -121,7 +154,6 @@ const Home = (props) => {
           address="Address"
           availability="Lots Available"
         />
-
         {CPSelected.map((item) => {
           return (
             <AvailabilityCard
