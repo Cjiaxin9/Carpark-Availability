@@ -4,7 +4,7 @@
    a. The user can search the available lots by carpark number or address
 
 2. Hierarchy chart of the Webpage
-   Hierarchy chart image
+   <img src= "https://media.giphy.com/media/SclQC1VGlH0GyQvbkr/giphy.gif">
 
 3. APIs Used
    a. HDB Carpark Information: [Data.gov.sg](https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2182)
