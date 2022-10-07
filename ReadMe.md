@@ -5,11 +5,14 @@
 
 2. Hierarchy chart of the Webpage
 <p></p>
-  <img src="https://www.linkpicture.com/q/Hierarchychart.png" type="image"></a>">
+  <img src="https://www.linkpicture.com/q/Hierarchychart.png" type="image"></a>
 
 3. APIs Used
-   a. HDB Carpark Information: [Data.gov.sg](https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2182)
-   b. Carpark availability: [Data.gov.sg](https://api.data.gov.sg/v1/transport/carpark-availability)
+   a. HDB Carpark Information: [Data.gov.sg]
+   (https://data.gov.sg/api/action/datastore_search?resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c&limit=2182)
+
+   b. Carpark availability: [Data.gov.sg]
+   (https://api.data.gov.sg/v1/transport/carpark-availability)
 
 4. React Element
 
