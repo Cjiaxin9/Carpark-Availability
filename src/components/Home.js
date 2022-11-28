@@ -7,6 +7,15 @@ import AvailabilityCard from "./AvailabilityCard";
 import "./availability.css";
 
 const Home = (props) => {
+  // today date
+  const someDate = new Date(); //Mon Nov 28 2022 15:56:27 GMT+0800 (Singapore Standard Time)
+
+  const today = new Date(someDate).toDateString(); //Mon Nov 28 2022
+
+  const time = new Date(someDate.getTime()).toLocaleTimeString(); //3:57:19 PM
+  console.log(time);
+  console.log(today);
+
   //retrived carpark info from HDB carpark information
 
   const [dataRetrievedHDBCarparkInfo, setDataRetrievedHDBCarparkInfo] =
@@ -29,6 +38,7 @@ const Home = (props) => {
   const [hasSearched, setHasSearched] = useState(false); //boolean determining
   const [HDBInfoObj, setHDBInfoObject] = useState({});
   const [CPAvail, setCPAvail] = useState([]);
+
   // by CP number
   const handleUserInput = (event) => {
     setUserInput(event.target.value);
@@ -53,14 +63,17 @@ const Home = (props) => {
     }
   }, [dataRetrievedHDBCarparkInfo]);
 
-  // to mark array for Availability
+  // to make array for Availability
   useEffect(() => {
     const CPAvail = [];
     for (let i = 0; i < dataRetrievedAvailability.length; i++) {
-      CPAvail.push({
-        car_park_no: dataRetrievedAvailability[i].car_park_no.toUpperCase(),
-        lots_available: dataRetrievedAvailability[i].lots_available,
-      });
+      if (dataRetrievedAvailability[i].lots_available != 0) {
+        //show the lot that not 0
+        CPAvail.push({
+          car_park_no: dataRetrievedAvailability[i].car_park_no.toUpperCase(),
+          lots_available: dataRetrievedAvailability[i].lots_available,
+        });
+      }
     }
 
     setCPAvail(CPAvail);
@@ -105,6 +118,10 @@ const Home = (props) => {
   return (
     <div ClassName="container">
       <h1 className="header">Carpark Availability</h1>
+      <span className="date">Date = {today} </span>
+      <p></p>
+      <span className="date">Time = {time} </span>
+
       <Search
         handleUserInput={handleUserInput}
         handleSubmit={handleSubmit}
@@ -132,12 +149,13 @@ const Home = (props) => {
           availability="Lots Available"
         />
 
-        {CPSelected.map((item) => {
+        {CPSelected.map((item, i) => {
           return (
             <AvailabilityCard
               carparkNumber={item.car_park_no}
               address={HDBInfoObj[item.car_park_no]}
               availability={item.lots_available}
+              key={i}
             />
           );
         })}
