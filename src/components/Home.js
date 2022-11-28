@@ -13,8 +13,6 @@ const Home = (props) => {
   const today = new Date(someDate).toDateString(); //Mon Nov 28 2022
 
   const time = new Date(someDate.getTime()).toLocaleTimeString(); //3:57:19 PM
-  console.log(time);
-  console.log(today);
 
   //retrived carpark info from HDB carpark information
 
