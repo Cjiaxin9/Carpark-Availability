@@ -1,5 +1,5 @@
 .row {
-  max-width: 1500px;
+  max-width: 1000px;
   border-bottom: 1px solid grey;
   border-left: 1px solid grey;
   border-right: 1px solid grey;
@@ -15,8 +15,8 @@
 }
 input {
   position: relative;
-  margin-left: 890px;
-  width: 450px;
+  margin-left: 400px;
+  width: 400px;
   height: 50px;
   font-size: x-large;
   text-align: center;
@@ -40,21 +40,22 @@ input {
 }
 .table {
   position: relative;
-  margin-left: 450px;
+  margin-left: 100px;
 }
 .header {
   position: relative;
   margin-top: 80px;
-  margin-left: 950px;
+  margin-left: 400px;
 }
 
 .image {
   position: relative;
-  margin-left: 1460px;
+  margin-left: 780px;
+  max-width: 20%;
 
-  margin-top: -150px;
+  margin-top: -300px;
 }
 .date {
-  margin-left: 450px;
+  margin-left: 80px;
   font-size: x-large;
 }
